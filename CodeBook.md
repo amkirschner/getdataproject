@@ -1,11 +1,5 @@
----
-title: "CodeBook for Getting and Cleaning Data - Course Project"
-author: "Aaron Kirschner"
-date: "September 27, 2015"
-output:
-  html_document:
-    keep_md: yes
----
+CodeBook for Getting and Cleaning Data - Course Project
+======
 
 ## Project Description
 Data used by this analysis comes from accelerometer and gyroscope 3-axial raw signals recorded via Samsung Galaxy S II smartphones worn by 30 subjects performing a number of activities. 

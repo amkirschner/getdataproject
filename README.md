@@ -1,12 +1,5 @@
----
-title: "Getting and Cleaning Data - Course Project"
-author: "Aaron Kirschner"
-date: "September 27, 2015"
-output:
-  html_document:
-    keep_md: yes
----
-
+README.md
+=====
 
 ## This repository contains the following:
 * __README.md__ - This file.
