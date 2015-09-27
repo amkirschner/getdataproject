@@ -1,7 +1,7 @@
 # Load necessary packages
 library(dplyr)
 library(tidyr)
-library(data.table)
+
 # Step 1 - Merge training and test data sets
   #load test data
     df_test_X <- read.table("./UCI HAR Dataset/test/X_test.txt", quote="\"", comment.char="")
@@ -49,14 +49,23 @@ library(data.table)
 #Step 4 - Replace variable names with abbreviated version of features
     #create vector with column names
       v_features_name <- df_features %>% select(V2) %>% collect %>% .[["V2"]]
-    #add subjectId and activityLabel values to v_features_name list and convert values to names
-      v_features_name<- make.names(append(c("subjectId","activityLabel"),v_features_name))
+    #add subjectId and activityLabel values to v_features_name list
+      v_features_name <- (append(c("subjectId","activityLabel"),v_features_name))
     #write values to column names
       colnames(df_combined_select) <- v_features_name
-    #group observations by subjectId and activityLabel and then summarize each by mean
+    #make column names readable
+      names(df_combined_select)<-gsub("^t", "time", names(df_combined_select))
+      names(df_combined_select)<-gsub("^f", "frequency", names(df_combined_select))
+      names(df_combined_select)<-gsub("Acc", "Accelerometer", names(df_combined_select))
+      names(df_combined_select)<-gsub("Gyro", "Gyroscope", names(df_combined_select))
+      names(df_combined_select)<-gsub("Mag", "Magnitude", names(df_combined_select))
+      names(df_combined_select)<-gsub("BodyBody", "Body", names(df_combined_select))
+      names(df_combined_select)<-gsub("\\(\\)", "", names(df_combined_select))
+
+#Step 5 - #write tidy data to txt file
+      #group observations by subjectId and activityLabel and then summarize each by mean
       df_combined_means <- df_combined_select %>%
         group_by(subjectId,activityLabel) %>%
         summarize_each(funs(mean))
-
-#Step 5 - #write tidy data to txt file
     write.table(df_combined_means,file="meansBySubjectAndActivity.txt",row.names=FALSE)
+    
